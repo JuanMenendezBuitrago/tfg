@@ -32,7 +32,7 @@ class User extends Authenticatable
  * @return mixed The files related to the current User
  */
   public function files(){
-    return $this->hasMany('File');
+    return $this->hasMany(File::class);
   }
 
   /**
@@ -40,7 +40,7 @@ class User extends Authenticatable
    * @return mixed The levels related to the current User
    */
   public function levels(){
-    return $this->belongsToMany('Level', 'levels_users');
+    return $this->belongsToMany(Level::class, 'levels_users');
   }
 
   /**
@@ -48,7 +48,7 @@ class User extends Authenticatable
    * @return mixed The merits related to the current User
    */
   public function merits(){
-    return $this->belongsToMany('Merit', 'merits_users');
+    return $this->belongsToMany(Merit::class, 'merits_users');
   }
 
   /**
@@ -56,6 +56,6 @@ class User extends Authenticatable
    * @return mixed The incentives related to the current User
    */
   public function incentives(){
-    return $this->belongsToMany('Incentive', 'incentives_users');
+    return $this->belongsToMany(Incentive::class, 'incentives_users');
   }
 }

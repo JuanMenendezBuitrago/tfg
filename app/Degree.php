@@ -11,7 +11,7 @@ class Degree extends Model
    * @return mixed The schools related to the current Degree
    */
   public function school(){
-    return $this->belongsTo('School');
+    return $this->belongsTo(School::class);
   }
 
   /**
@@ -19,6 +19,6 @@ class Degree extends Model
    * @return mixed The courses related to the current Degree
    */
   public function courses(){
-    return $this->hasMany('Course');
+    return $this->hasMany(Course::class);
   }
 }

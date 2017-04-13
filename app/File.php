@@ -11,6 +11,6 @@ class File extends Model
    * @return mixed The users related to the current File
    */
   public function user(){
-    return $this->belongsTo('User');
+    return $this->belongsTo(User::class);
   }
 }

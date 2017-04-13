@@ -11,6 +11,6 @@ class Activity extends Model
    * @return mixed The courses related to the current Activity
    */
   public function course(){
-    return $this->belongsTo('Course');
+    return $this->belongsTo(Course::class);
   }
 }

@@ -11,6 +11,14 @@ class Merit extends Model
    * @return mixed The users related to the current Merit
    */
   public function users(){
-    return $this->belongsToMany('User', 'merits_users');
+    return $this->belongsToMany(User::class, 'merits_users');
   }
+
+ /**
+   * One-to-Many relationship with courses
+   * @return mixed The course related to the current Merit
+   */
+  public function course(){
+    return $this->belongsTo(Course::class);
+  }  
 }

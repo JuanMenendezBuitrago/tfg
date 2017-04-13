@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class PointCategory extends Model
 {
   /**
-   * one-to-many relationship with points
+   * One-to-many relationship with points
    * @return mixed The points related to the current PointCategory
    */
-  public function point(){
-    return $this->hasMany('Point');
+  public function points(){
+    return $this->hasMany(Point::class);
   }
 }

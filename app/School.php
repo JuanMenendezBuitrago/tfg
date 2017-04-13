@@ -11,6 +11,6 @@ class School extends Model
    * @return mixed The degrees related to the current School
    */
   public function degrees(){
-    return $this->hasMany('Degree');
+    return $this->hasMany(Degree::class);
   }
 }
