@@ -14,10 +14,20 @@ class CreateIncentivesUsersTable extends Migration
     public function up()
     {
         Schema::create('incentives_users', function (Blueprint $table) {
-            $table->increments('id');
+            
             $table->integer('incentive_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->timestamps();
+            $table->timestamp('created_at');
+            $table->primary('incentive_id','user_id');
+
+            $table->foreign('incentive_id')
+                  ->references('id')
+                  ->on('incentives')
+                  ->onDelete('cascade');
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('cascade');                              
         });
     }
 

@@ -15,8 +15,30 @@ class CreatePointsTable extends Migration
     {
         Schema::create('points', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('amount');
             $table->integer('category_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->integer('course_id')->unsigned();
+            $table->integer('activity_id')->unsigned();
+            $table->text('description');
             $table->timestamps();
+
+            $table->foreign('category_id')
+                  ->references('id')
+                  ->on('pointCategories')
+                  ->onDelete('cascade');
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('cascade');
+            $table->foreign('course_id')
+                  ->references('id')
+                  ->on('courses')
+                  ->onDelete('cascade');
+            $table->foreign('activity_id')
+                  ->references('id')
+                  ->on('activities')
+                  ->onDelete('cascade');                                                                  
         });
     }
 

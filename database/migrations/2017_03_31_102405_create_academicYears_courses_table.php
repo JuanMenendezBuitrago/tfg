@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMeritsUsersTable extends Migration
+class CreateAcademicYearsCoursesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,19 @@ class CreateMeritsUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('merits_users', function (Blueprint $table) {
-            
-            $table->integer('merit_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+        Schema::create('academicYears_courses', function (Blueprint $table) {
+            $table->integer('academicYear_id')->unsigned();
+            $table->integer('course_id')->unsigned();
             $table->timestamp('created_at');
-            $table->primary('merit_id','user_id');
+            $table->primary(['course_id','academicYear_id']);
 
-            
-            $table->foreign('merit_id')
+            $table->foreign('academicYear_id')
                   ->references('id')
-                  ->on('merits')
+                  ->on('academicYears')
                   ->onDelete('cascade');
-            $table->foreign('user_id')
+            $table->foreign('course_id')
                   ->references('id')
-                  ->on('users')
+                  ->on('courses')
                   ->onDelete('cascade');
         });
     }
@@ -39,6 +37,6 @@ class CreateMeritsUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('merits_users');
+        Schema::dropIfExists('academicYears_courses');
     }
 }

@@ -14,10 +14,20 @@ class CreateLevelsUsersTable extends Migration
     public function up()
     {
         Schema::create('levels_users', function (Blueprint $table) {
-            $table->increments('id');
+            
             $table->integer('level_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->timestamps();
+            $table->timestamp('created_at');
+            $table->primary('level_id','user_id');
+
+            $table->foreign('level_id')
+                  ->references('id')
+                  ->on('levels')
+                  ->onDelete('cascade');
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('cascade');
         });
     }
 

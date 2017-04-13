@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLevelsTable extends Migration
+class CreateAcademicYearsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,10 @@ class CreateLevelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('levels', function (Blueprint $table) {
+        Schema::create('academicYears', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('course_id')->unsigned();
             $table->string('name');
-            $table->text('description');
-            $table->integer('min');
-            $table->integer('max');
             $table->timestamps();
-
-            $table->foreign('course_id')
-                  ->references('id')
-                  ->on('courses')
-                  ->onDelete('cascade');            
         });
     }
 
@@ -36,6 +27,6 @@ class CreateLevelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('levels');
+        Schema::dropIfExists('academicYears');
     }
 }

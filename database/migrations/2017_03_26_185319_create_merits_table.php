@@ -15,7 +15,15 @@ class CreateMeritsTable extends Migration
     {
         Schema::create('merits', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('course_id')->unsigned();
+            $table->string('name');
+            $table->text('description')->nullable();
             $table->timestamps();
+
+            $table->foreign('course_id')
+                  ->references('id')
+                  ->on('courses')
+                  ->onDelete('cascade');            
         });
     }
 
