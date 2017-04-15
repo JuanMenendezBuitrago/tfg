@@ -16,8 +16,12 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
-        'name' => $faker->name,
+        'niu' => $faker->unique()->regexify('[1-9][0-9]{6}'),
+        'name' => $faker->unique()->name,
+        'nickname' => $faker->unique()->userName,
+        'description' => $faker->text(200),
         'email' => $faker->unique()->safeEmail,
+        'avatar' => $faker->imageUrl(100,100),
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
     ];
