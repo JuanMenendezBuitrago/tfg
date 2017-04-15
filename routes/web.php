@@ -19,4 +19,23 @@ Route::get('/about', function () {
     return view('about');
 });
 
-Route::get('/school/create', 'Schoolcontroller@create');
+///
+/// Resources
+///
+
+Route::resource('school', 'SchoolController');
+Route::resource('degree', 'DegreeController');
+Route::resource('group', 'GroupController');
+//Route::resource('user', 'UserController');
+//Route::resource('course', 'CourseController');
+Route::resource('level', 'LevelController');
+// Route::resource('activity', 'ActivityController');
+// Route::resource('point', 'PointController');
+// Route::resource('incentive', 'IncentivesController');
+// Route::resource('pointCategory', 'PointCategoryController');
+// Route::resource('academicYear', 'AcademicYearController');
+// Route::resource('file', 'FileController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
