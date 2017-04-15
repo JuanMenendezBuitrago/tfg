@@ -28,6 +28,14 @@ class User extends Authenticatable
   ];
 
   /**
+ * many-to-many relationship with groups
+ * @return mixed The groups related to the current User
+ */
+  public function groups(){
+    return $this->belongsToMany(Group::class, 'groups_users');
+  }
+
+  /**
  * One-to-many relationship with files
  * @return mixed The files related to the current User
  */
