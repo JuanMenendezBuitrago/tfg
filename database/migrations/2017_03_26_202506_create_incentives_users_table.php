@@ -18,7 +18,7 @@ class CreateIncentivesUsersTable extends Migration
             $table->integer('incentive_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->timestamp('created_at');
-            $table->primary('incentive_id','user_id');
+            $table->primary(['incentive_id','user_id']);
 
             $table->foreign('incentive_id')
                   ->references('id')

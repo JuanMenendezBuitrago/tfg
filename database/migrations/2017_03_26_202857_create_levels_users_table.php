@@ -18,7 +18,7 @@ class CreateLevelsUsersTable extends Migration
             $table->integer('level_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->timestamp('created_at');
-            $table->primary('level_id','user_id');
+            $table->primary(['level_id','user_id']);
 
             $table->foreign('level_id')
                   ->references('id')

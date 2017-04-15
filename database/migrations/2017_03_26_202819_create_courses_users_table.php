@@ -18,7 +18,7 @@ class CreateCoursesUsersTable extends Migration
             $table->integer('course_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->timestamp('created_at');
-            $table->primary('course_id','user_id');
+            $table->primary(['course_id','user_id']);
 
             $table->foreign('user_id')
                   ->references('id')

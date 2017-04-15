@@ -17,7 +17,7 @@ class CreateGroupsUsersTable extends Migration
             $table->integer('group_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->timestamp('created_at');
-            $table->primary('group_id','user_id');
+            $table->primary(['group_id','user_id']);
 
             $table->foreign('group_id')
                   ->references('id')

@@ -18,7 +18,7 @@ class CreateMeritsUsersTable extends Migration
             $table->integer('merit_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->timestamp('created_at');
-            $table->primary('merit_id','user_id');
+            $table->primary(['merit_id','user_id']);
 
             
             $table->foreign('merit_id')
