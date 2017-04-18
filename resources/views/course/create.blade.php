@@ -2,7 +2,7 @@
 
 @section('content')
   <form method="POST" action="">
-    @include('activity._form')
+    @include('course._form')
   </form>
 
 @endsection

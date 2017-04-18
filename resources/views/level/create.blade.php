@@ -1,4 +1,4 @@
-@extends ('layouts.main')
+@extends ('layouts.dashboard')
 
 @section('content')
   <form method="POST" action="">

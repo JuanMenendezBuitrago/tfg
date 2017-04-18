@@ -26,12 +26,13 @@ Route::get('/about', function () {
 Route::resource('school', 'SchoolController');
 Route::resource('degree', 'DegreeController');
 Route::resource('group', 'GroupController');
-//Route::resource('user', 'UserController');
-//Route::resource('course', 'CourseController');
+Route::resource('user', 'UserController');
+Route::resource('course', 'CourseController');
 Route::resource('level', 'LevelController');
-// Route::resource('activity', 'ActivityController');
+Route::resource('merit', 'MeritController');
+Route::resource('activity', 'ActivityController');
 // Route::resource('point', 'PointController');
-// Route::resource('incentive', 'IncentivesController');
+Route::resource('incentive', 'IncentiveController');
 // Route::resource('pointCategory', 'PointCategoryController');
 // Route::resource('academicYear', 'AcademicYearController');
 // Route::resource('file', 'FileController');
