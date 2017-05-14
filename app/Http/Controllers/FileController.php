@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Course;
-use App\Merit;
+use App\File;
 use Illuminate\Http\Request;
 
-class MeritController extends Controller
+class FileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,8 @@ class MeritController extends Controller
      */
     public function index()
     {
-        $merits = Merit::with('course')->get();
-        return view('merit.list', compact('merits'));
+        $files = File::with('owner')->get();
+        return view('file.list', compact('files'));
     }
 
     /**
@@ -26,9 +25,8 @@ class MeritController extends Controller
      */
     public function create()
     {
-        $courses = Course::all();
-        $merit = new Merit;
-        return view('merit.create',compact('merit','courses'));
+        $file = new File;
+        return view('file.create',compact('file'));
     }
 
     /**
@@ -39,17 +37,11 @@ class MeritController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->files);
         $this->validate($request, [
-            'course_id' => 'required|exists:courses,id',
+            'user_id' => 'required|exists:user,id',
             'name' => 'required|max:255'
         ]);
-
-       if(Merit::create($request->all())){
-            flash('Les dades se han desat correctament.')->success();
-            return redirect()->route('merit.index');
-        }
-        flash('Error desant les dades.')->error();
-        return redirect()->route('merit.index');
     }
 
     /**
@@ -69,10 +61,9 @@ class MeritController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Merit $merit)
+    public function edit($id)
     {
-      $courses = Course::all();
-      return view('merit.update', compact('merit', 'courses'));
+        //
     }
 
     /**
@@ -82,18 +73,9 @@ class MeritController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Merit $merit)
+    public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'course_id' => 'required|exists:courses,id',
-            'name' => 'required|max:255'
-        ]);
-        if($merit->fill($request->all())->save()){
-            flash('Les dades se han desat correctament.')->success();
-            return redirect()->route('merit.index');
-        }
-        flash('Error desant les dades.')->error();
-        return redirect()->route('merit.index');
+        //
     }
 
     /**
@@ -102,8 +84,8 @@ class MeritController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Merit $merit)
+    public function destroy($id)
     {
-        return $this->destroyResource($request, $merit);
+        //
     }
 }

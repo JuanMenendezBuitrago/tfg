@@ -15,7 +15,8 @@ class LevelController extends Controller
      */
     public function index()
     {
-        //
+        $levels = Level::with('course')->get();
+        return view('level.list', compact('levels'));
     }
 
     /**
@@ -38,7 +39,19 @@ class LevelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'course_id' => 'required|exists:courses,id',
+            'min'=>'integer',
+            'max'=>'integer',
+            'name' => 'required|max:255'
+        ]);
+
+        if(Level::create($request->all())){
+            flash('Les dades se han desat correctament.')->success();
+            return redirect()->route('level.index');
+        }
+        flash('Error desant les dades.')->error();
+        return redirect()->route('level.index');
     }
 
     /**
@@ -58,9 +71,10 @@ class LevelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Level $level)
     {
-        //
+      $courses = Course::all();
+      return view('level.update', compact('level', 'courses'));
     }
 
     /**
@@ -70,9 +84,21 @@ class LevelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Level $level)
     {
-        //
+        $this->validate($request, [
+            'course_id' => 'required|exists:courses,id',
+            'min'=>'integer',
+            'max'=>'integer',
+            'name' => 'required|max:255'
+        ]);
+
+        if($level->fill($request->all())->save()){
+            flash('Les dades se han desat correctament.')->success();
+            return redirect()->route('level.index');
+        }
+        flash('Error desant les dades.')->error();
+        return redirect()->route('level.index');
     }
 
     /**
@@ -81,8 +107,8 @@ class LevelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Level $level)
     {
-        //
+        return $this->destroyResource($request, $level);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\School;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class SchoolController extends Controller
@@ -14,7 +15,8 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        //
+        $schools = School::all();
+        return view('school.list',['schools'=>$schools]);
     }
 
     /**
@@ -24,7 +26,7 @@ class SchoolController extends Controller
      */
     public function create()
     {
-        $school = new \App\School;
+        $school = new School;
         return view('school.create',['school'=>$school]);
     }
 
@@ -36,7 +38,16 @@ class SchoolController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:255'
+        ]);
+
+        if(School::create($request->all())){
+            flash('Les dades se han desat correctament.')->success();
+            return redirect()->route('school.index');
+        }
+        flash('Error desant les dades.')->error();
+        return redirect()->route('school.index');
     }
 
     /**
@@ -58,7 +69,7 @@ class SchoolController extends Controller
      */
     public function edit(School $school)
     {
-        //
+      return view('school.update', compact('school'));
     }
 
     /**
@@ -70,7 +81,16 @@ class SchoolController extends Controller
      */
     public function update(Request $request, School $school)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:255'
+        ]);
+
+        if($school->fill($request->all())->save()){
+            flash('Les dades se han desat correctament.')->success();
+            return redirect()->route('school.index');
+        }
+        flash('Error desant les dades.')->error();
+        return redirect()->route('school.index');
     }
 
     /**
@@ -79,8 +99,8 @@ class SchoolController extends Controller
      * @param  \App\School  $school
      * @return \Illuminate\Http\Response
      */
-    public function destroy(School $school)
-    {
-        //
+    public function destroy(Request $request, School $school)
+    {   
+        return $this->destroyResource($request, $school);
     }
 }

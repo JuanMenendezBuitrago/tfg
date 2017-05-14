@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Activity;
-use App\Course;
+use App\Point;
+use App\PointCategory;
+use App\User;
 use Illuminate\Http\Request;
 
-class ActivityController extends Controller
+class PointController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +17,8 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        $activities = Activity::with('course')->get();
-        return view('activity.list', compact('activities'));
+        $points = Point::with('category','user','activity')->get();
+        return view('point.list', compact('points'));
     }
 
     /**
@@ -26,9 +28,11 @@ class ActivityController extends Controller
      */
     public function create()
     {
-        $courses = Course::all();
-        $activity = new Activity;
-        return view('activity.create',compact('activity','courses'));
+        $point = new Point;
+        $categories = PointCategory::all();
+        $users = User::all();
+        $activities = Activity::all();
+        return view('point.create',compact('point', 'categories', 'users', 'activities'));
     }
 
     /**
@@ -40,16 +44,19 @@ class ActivityController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'course_id' => 'required|exists:courses,id',
+            'category_id'=>'required|exists:pointCategories,id',
+            'amount'=>'required|integer|min:0',
+            'user_id'=>'required|exists:users,id',
+            'activity_id'=>'required|exists:activities,id',
             'name' => 'required|max:255'
         ]);
 
-        if(Activity::create($request->all())){
+       if(Point::create($request->all())){
             flash('Les dades se han desat correctament.')->success();
-            return redirect()->route('activity.index');
+            return redirect()->route('point.index');
         }
         flash('Error desant les dades.')->error();
-        return redirect()->route('activity.index');
+        return redirect()->route('point.index');
     }
 
     /**
@@ -69,10 +76,10 @@ class ActivityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Activity $activity)
+    public function edit(Point $point)
     {
-      $courses = Course::all();
-      return view('activity.update', compact('activity', 'courses'));
+      $categories = PointCategory::all();
+      return view('point.update', compact('point', 'categories'));
     }
 
     /**
@@ -82,19 +89,21 @@ class ActivityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Activity $activity)
+    public function update(Request $request, Point $point)
     {
         $this->validate($request, [
-            'course_id' => 'required|exists:courses,id',
+            'category_id'=>'required|exists:pointCategories,id',
+            'amount'=>'required|integer|min:0',
+            'user_id'=>'required|exists:users,id',
+            'activity_id'=>'required|exists:activities,id',
             'name' => 'required|max:255'
         ]);
-
-        if($activity->fill($request->all())->save()){
+        if($point->fill($request->all())->save()){
             flash('Les dades se han desat correctament.')->success();
-            return redirect()->route('school.index');
+            return redirect()->route('point.index');
         }
         flash('Error desant les dades.')->error();
-        return redirect()->route('school.index');
+        return redirect()->route('point.index');
     }
 
     /**
@@ -103,8 +112,8 @@ class ActivityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Activity $activity)
+    public function destroy(Request $request, Point $point)
     {
-        return $this->destroyResource($request, $activity);
+        return $this->destroyResource($request, $point);
     }
 }

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Activity;
-use App\Course;
+use App\Role;
+use App\User;
 use Illuminate\Http\Request;
 
-class ActivityController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        $activities = Activity::with('course')->get();
-        return view('activity.list', compact('activities'));
+        $roles=Role::withCount('users')->orderBy('users_count')->get();
+        return view('role.list', compact('roles'));
     }
 
     /**
@@ -26,9 +26,8 @@ class ActivityController extends Controller
      */
     public function create()
     {
-        $courses = Course::all();
-        $activity = new Activity;
-        return view('activity.create',compact('activity','courses'));
+      $role = new Role;
+      return view('role.create', compact('role'));
     }
 
     /**
@@ -40,16 +39,16 @@ class ActivityController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'course_id' => 'required|exists:courses,id',
-            'name' => 'required|max:255'
+            'name' => 'required|max:255',
+            'readable_name' => 'required|max:255'
         ]);
 
-        if(Activity::create($request->all())){
+       if(Role::create($request->all())){
             flash('Les dades se han desat correctament.')->success();
-            return redirect()->route('activity.index');
+            return redirect()->route('role.index');
         }
         flash('Error desant les dades.')->error();
-        return redirect()->route('activity.index');
+        return redirect()->route('role.index');
     }
 
     /**
@@ -69,10 +68,9 @@ class ActivityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Activity $activity)
+    public function edit(Role $role)
     {
-      $courses = Course::all();
-      return view('activity.update', compact('activity', 'courses'));
+      return view('role.update', compact('role'));        
     }
 
     /**
@@ -82,19 +80,18 @@ class ActivityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Activity $activity)
+    public function update(Request $request, Role $role)
     {
         $this->validate($request, [
-            'course_id' => 'required|exists:courses,id',
-            'name' => 'required|max:255'
+            'name' => 'required|max:255',
+            'readable_name' => 'required|max:255'
         ]);
-
-        if($activity->fill($request->all())->save()){
+        if($role->fill($request->all())->save()){
             flash('Les dades se han desat correctament.')->success();
-            return redirect()->route('school.index');
+            return redirect()->route('role.index');
         }
         flash('Error desant les dades.')->error();
-        return redirect()->route('school.index');
+        return redirect()->route('role.index');
     }
 
     /**
@@ -103,8 +100,8 @@ class ActivityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Activity $activity)
+    public function destroy(Request $request, Role $role)
     {
-        return $this->destroyResource($request, $activity);
+        return $this->destroyResource($request, $role);
     }
 }

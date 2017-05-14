@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Activity;
-use App\Course;
+use App\Permission;
+use App\User;
 use Illuminate\Http\Request;
 
-class ActivityController extends Controller
+class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        $activities = Activity::with('course')->get();
-        return view('activity.list', compact('activities'));
+        $permissions=Permission::all();
+        return view('permission.list', compact('permissions'));
     }
 
     /**
@@ -26,9 +26,8 @@ class ActivityController extends Controller
      */
     public function create()
     {
-        $courses = Course::all();
-        $activity = new Activity;
-        return view('activity.create',compact('activity','courses'));
+      $permission = new Permission;
+      return view('permission.create', compact('permission'));
     }
 
     /**
@@ -40,16 +39,15 @@ class ActivityController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'course_id' => 'required|exists:courses,id',
             'name' => 'required|max:255'
         ]);
 
-        if(Activity::create($request->all())){
+       if(Permission::create($request->all())){
             flash('Les dades se han desat correctament.')->success();
-            return redirect()->route('activity.index');
+            return redirect()->route('permission.index');
         }
         flash('Error desant les dades.')->error();
-        return redirect()->route('activity.index');
+        return redirect()->route('permission.index');
     }
 
     /**
@@ -69,10 +67,9 @@ class ActivityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Activity $activity)
+    public function edit(Permission $permission)
     {
-      $courses = Course::all();
-      return view('activity.update', compact('activity', 'courses'));
+      return view('permission.update', compact('permission'));        
     }
 
     /**
@@ -82,19 +79,17 @@ class ActivityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Activity $activity)
+    public function update(Request $request, Permission $permission)
     {
         $this->validate($request, [
-            'course_id' => 'required|exists:courses,id',
             'name' => 'required|max:255'
         ]);
-
-        if($activity->fill($request->all())->save()){
+       if($permission->fill($request->all())->save()){
             flash('Les dades se han desat correctament.')->success();
-            return redirect()->route('school.index');
+            return redirect()->route('permission.index');
         }
         flash('Error desant les dades.')->error();
-        return redirect()->route('school.index');
+        return redirect()->route('permission.index');
     }
 
     /**
@@ -103,8 +98,8 @@ class ActivityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Activity $activity)
+    public function destroy(Request $request, Permission $permission)
     {
-        return $this->destroyResource($request, $activity);
+        return $this->destroyResource($request, $permission);
     }
 }

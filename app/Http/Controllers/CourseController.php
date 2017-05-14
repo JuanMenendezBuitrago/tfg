@@ -15,7 +15,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        $courses=Course::with('degree')->get();
+        return view('course.list', compact('courses'));
     }
 
     /**
@@ -25,8 +26,8 @@ class CourseController extends Controller
      */
     public function create()
     {
-        $course = new Course;
         $degrees = Degree::all();
+        $course = new Course;
         return view('course.create', compact('course','degrees'));
     }
 
@@ -38,7 +39,20 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'degree_id' => 'required|exists:degrees,id',
+            'code' => 'required|max:255|integer',
+            'name' => 'required|max:255',
+            'year' => 'required|integer',
+            'semester' => 'required|integer|max:3'
+        ]);
+
+        if(Course::create($request->all())){
+            flash('Les dades se han desat correctament.')->success();
+            return redirect()->route('course.index');
+        }
+        flash('Error desant les dades.')->error();
+        return redirect()->route('course.index');
     }
 
     /**
@@ -58,9 +72,10 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Course $course)
     {
-        //
+      $degrees = Degree::all();
+      return view('course.update', compact('course', 'degrees'));        
     }
 
     /**
@@ -70,9 +85,21 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Course $course)
     {
-        //
+        $this->validate($request, [
+            'degree_id' => 'required|exists:degrees,id',
+            'code' => 'required|max:255|integer',
+            'name' => 'required|max:255',
+            'year' => 'required|integer',
+            'semester' => 'required|integer|max:3'
+        ]);
+        if($course->fill($request->all())->save()){
+            flash('Les dades se han desat correctament.')->success();
+            return redirect()->route('course.index');
+        }
+        flash('Error desant les dades.')->error();
+        return redirect()->route('course.index');
     }
 
     /**
@@ -81,8 +108,8 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, School $school)
     {
-        //
+        return $this->destroyResource($request, $school);
     }
 }

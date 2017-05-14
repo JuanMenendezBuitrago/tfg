@@ -15,7 +15,8 @@ class IncentiveController extends Controller
      */
     public function index()
     {
-        //
+        $incentives = Incentive::with('course')->get();
+        return view('incentive.list', compact('incentives'));
     }
 
     /**
@@ -38,7 +39,18 @@ class IncentiveController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'course_id' => 'required|exists:courses,id',
+            'name' => 'required|max:255',
+            'price' => 'required|integer|min:0'
+        ]);
+
+        if(Incentive::create($request->all())){
+            flash('Les dades se han desat correctament.')->success();
+            return redirect()->route('incentive.index');
+        }
+        flash('Error desant les dades.')->error();
+        return redirect()->route('incentive.index');
     }
 
     /**
@@ -58,9 +70,10 @@ class IncentiveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Incentive $incentive)
     {
-        //
+      $courses = Course::all();
+      return view('icentive.update', compact('incentive', 'courses'));
     }
 
     /**
@@ -70,9 +83,18 @@ class IncentiveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Incentive $incentive)
     {
-        //
+        $this->validate($request, [
+            'course_id' => 'required|exists:courses,id',
+            'name' => 'required|max:255'
+        ]);
+        if($incentive->fill($request->all())->save()){
+            flash('Les dades se han desat correctament.')->success();
+            return redirect()->route('incentive.index');
+        }
+        flash('Error desant les dades.')->error();
+        return redirect()->route('incentive.index');
     }
 
     /**
@@ -81,8 +103,8 @@ class IncentiveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Incentive $incentive)
     {
-        //
+        return $this->destroyResource($request, $incentive);
     }
 }

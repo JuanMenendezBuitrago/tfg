@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Activity;
-use App\Course;
+use App\PointCategory;
 use Illuminate\Http\Request;
 
-class ActivityController extends Controller
+class PointCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,8 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        $activities = Activity::with('course')->get();
-        return view('activity.list', compact('activities'));
+        $categories = PointCategory::all();
+        return view('pointCategory.list', compact('categories'));
     }
 
     /**
@@ -26,9 +25,8 @@ class ActivityController extends Controller
      */
     public function create()
     {
-        $courses = Course::all();
-        $activity = new Activity;
-        return view('activity.create',compact('activity','courses'));
+        $pointCategory = new PointCategory;
+        return view('pointCategory.create',compact('pointCategory'));        
     }
 
     /**
@@ -40,16 +38,15 @@ class ActivityController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'course_id' => 'required|exists:courses,id',
             'name' => 'required|max:255'
         ]);
 
-        if(Activity::create($request->all())){
+       if(PointCategory::create($request->all())){
             flash('Les dades se han desat correctament.')->success();
-            return redirect()->route('activity.index');
+            return redirect()->route('pointCategory.index');
         }
         flash('Error desant les dades.')->error();
-        return redirect()->route('activity.index');
+        return redirect()->route('pointCategory.index');
     }
 
     /**
@@ -69,10 +66,9 @@ class ActivityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Activity $activity)
+    public function edit(PointCategory $category)
     {
-      $courses = Course::all();
-      return view('activity.update', compact('activity', 'courses'));
+      return view('pointCategory.update', compact('category'));
     }
 
     /**
@@ -82,19 +78,17 @@ class ActivityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Activity $activity)
+    public function update(Request $request, PointCategory $pointCategory )
     {
         $this->validate($request, [
-            'course_id' => 'required|exists:courses,id',
             'name' => 'required|max:255'
         ]);
-
-        if($activity->fill($request->all())->save()){
+       if($pointCategory->fill($request->all())->save()){
             flash('Les dades se han desat correctament.')->success();
-            return redirect()->route('school.index');
+            return redirect()->route('pointCategory.index');
         }
         flash('Error desant les dades.')->error();
-        return redirect()->route('school.index');
+        return redirect()->route('pointCategory.index');
     }
 
     /**
@@ -103,8 +97,8 @@ class ActivityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Activity $activity)
+    public function destroy(Request $request, PointCategory $pointCategory)
     {
-        return $this->destroyResource($request, $activity);
+        return $this->destroyResource($request, $pointCategory);
     }
 }
