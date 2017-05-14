@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Degree extends Model
 {
+  protected $fillable = ['school_id', 'name', 'description'];
   /**
    * One-to-many relationship with schools
    * @return mixed The schools related to the current Degree

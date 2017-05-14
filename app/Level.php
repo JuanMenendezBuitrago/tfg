@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Level extends Model
 {
+  protected $fillable = ['name','course_id','description','min','max'];
   /**
    * Many-to-many relationship with users
    * @return mixed The users related to the current Level

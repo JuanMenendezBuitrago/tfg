@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Merit extends Model
 {
+  protected $fillable = ['name', 'description', 'course_id'];
   /**
    * Many-to-many relationship with users
    * @return mixed The users related to the current Merit

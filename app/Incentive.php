@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Incentive extends Model
 {
+  protected $fillable = ['name', 'description', 'course_id', 'price'];
   /**
    * Many-to-many relationship with users
    * @return mixed The users related to the current Incentive
