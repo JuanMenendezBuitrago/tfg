@@ -9,13 +9,14 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
+        <link rel="stylesheet" href="css/vendor/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ mix('css/vendor/bootstrap/css/bootstrap.css') }}">
         <!-- Styles -->
         <style>
             html, body {
                 background-color: #fff;
                 color: #636b6f;
-                font-family: 'Raleway', sans-serif;
+                /*font-family: 'Raleway', sans-serif;*/
                 font-weight: 100;
                 height: 100vh;
                 margin: 0;
@@ -69,10 +70,10 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/home') }}"><i class="fa fa-home"></i>Home</a>
                     @else
-                        <a href="{{ url('/login') }}">Login</a>
-                        <a href="{{ url('/register') }}">Register</a>
+                        <a href="{{ url('/login') }}"><i class="fa fa-user-circle"></i>Login</a>
+                        <a href="{{ url('/register') }}"><i class="glyphicon glyphicon-bell"></i>Register</a>
                     @endif
                 </div>
             @endif
@@ -89,6 +90,17 @@
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
+                <ul class="list-group links">
+                    <ul class="list-group-item"><a href="/school">Schools</a></ul>
+                    <ul class="list-group-item"><a href="/degree">Degrees</a></ul>
+                    <ul class="list-group-item"><a href="/course">Courses</a></ul>
+                    <ul class="list-group-item"><a href="/activity">Activities</a></ul>
+                    <ul class="list-group-item"><a href="/incentive">Incentives</a></ul>
+                    <ul class="list-group-item"><a href="/level">Levels</a></ul>
+                    <ul class="list-group-item"><a href="/merit">Merits</a></ul>
+                    <ul class="list-group-item"><a href="/point">Points</a></ul>
+                    <ul class="list-group-item"><a href="/group">Groups</a></ul>
+                </ul>
             </div>
         </div>
     </body>

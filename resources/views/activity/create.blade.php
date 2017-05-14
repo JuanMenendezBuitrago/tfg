@@ -1,7 +1,8 @@
 @extends ('layouts.dashboard')
 
 @section('content')
-  <form method="POST" action="">
+  <h1>Nova activitat</h1>
+  <form method="POST" action="/activity">
     @include('activity._form')
   </form>
 

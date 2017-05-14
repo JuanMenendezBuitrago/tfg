@@ -1,8 +1,8 @@
-@extends ('layouts.admin')
+@extends ('layouts.dashboard')
 
 @section('content')
-  <form method="POST" action="">
+  <h1>Nova titulació</h1>
+  <form method="POST" action="/degree">
     @include('degree._form')
   </form>
-
 @endsection

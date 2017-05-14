@@ -1,52 +1,54 @@
 
   {{ csrf_field() }}
-  <div class="form-group">
-    <label for="name">nom</label>
+  <div class="form-group form-group-lg {{ ($errors->has('name'))?'has-error':'' }}">
+    <label for="name" class="control-label">nom</label>
     <input type="text" class="form-control" name="name" id="name" placeholder="nom" value="{{ $course->name?:''}}" />
+    @include('partials.field-error', ['field' => 'name'])
   </div>  
 
-  <div class="form-group">
-    <label for="code">codi</label>
+  <div class="form-group form-group-lg {{ ($errors->has('code'))?'has-errors':'' }}">
+    <label class="control-label" for="code">codi</label>
     <input type="text" class="form-control" name="code" id="code" placeholder="codi" value="{{ $course->code?:''}}" />
+    @include('partials.field-error', ['field' => 'code'])
   </div>  
 
-  <div class="form-group">
-    <label for="degree_id">titulació</label>
+  <div class="form-group form-group-lg {{ ($errors->has('year'))?'has-errors':'' }}">
+    <label class="control-label" for="year">any</label>
+    <input type="text" class="form-control" name="year" id="year" placeholder="codi" value="{{ $course->year?:''}}" />
+    @include('partials.field-error', ['field' => 'year'])
+  </div>  
+
+  <div class="form-group form-group-lg {{ ($errors->has('degree-id'))?'has-errors':'' }}">
+    <label class="control-label" for="degree_id">titulació</label>
     <select class="form-control" name="degree_id" id="degree_id">
       @foreach($degrees as $degree)
-      <option value="{{ $degree->id }}">{{ $degree->name }}</option>
+      <option value="{{ $degree->id }}" {{ (isset($course->degree) && $course->degree->id == $degree->id)?'selected':'' }}>{{ $degree->name }}</option>
       @endforeach
     </select>
+    @include('partials.field-error', ['field' => 'degree_id'])
   </div>
 
-  <div class="form-group">
-    <label for="description">descripció</label>
+  <div class="form-group form-group-lg {{ ($errors->has('description'))?'has-error':'' }}">
+    <label class="control-label" for="description">descripció</label>
     <textarea class="form-control" name="description" id="description" placeholder="descripció">{{ $course->description?:'' }}</textarea>
+    @include('partials.field-error', ['field' => 'description'])
   </div>  
 
-  <fieldset class="form-group row">
-    <legend class="col-form-legend col-sm-2">Semestre</legend>
-    <div class="form-group">
+  <div class="form-group form-group-lg {{ ($errors->has('semester'))?'has-error':'' }}">
+    <label class="control-label">Semestre</label>
+    <label class="radio-inline control-label">
+      <input type="radio" name="semester" id="semester" value="1" {{ $course->semester==1?"checked":""}}> 1er
+    </label>
 
-      <div class="form-check form-check-inline">
-        <label class="form-check-label">
-          <input class="form-check-input" type="radio" name="semester" id="semester" value="1" {{ $course->semester==1?"checked":""}}> 1er
-        </label>
-      </div>
+    <label class="radio-inline control-label">
+      <input type="radio" name="semester" id="semester" value="2" {{ $course->semester==2?"checked":""}}> 2on
+    </label>
 
-      <div class="form-check form-check-inline">
-        <label class="form-check-label">
-          <input class="form-check-input" type="radio" name="semester" id="semester" value="2" {{ $course->semester==2?"checked":""}}> 2on
-        </label>
-      </div>
-
-      <div class="form-check form-check-inline">
-        <label class="form-check-label">
-          <input class="form-check-input" type="radio" name="semester" id="semester" value="3" {{ $course->semester==3?"checked":""}}> anual
-        </label>
-      </div>
-    </div>
-  </fieldset>  
+    <label class="radio-inline control-label">
+      <input type="radio" name="semester" id="semester" value="3" {{ $course->semester==3?"checked":""}}> anual
+    </label>
+    @include('partials.field-error', ['field' => 'semester'])
+  </div>  
   <div class="form-group">
-    <button type="submit" class="btn btn-default">desa</button>
+    <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-save"></i> desa</button>
   </div>

@@ -1,16 +1,14 @@
 @extends ('layouts.dashboard')
-
 @section('content')
-    <form method="POST" class="dropzone" id="dropzone" action="/user">
+  <form method="POST" action="/user/{{ $user->id }}" enctype="multipart/form-data">
+    {{ method_field('PUT') }}
     @include('user._form')
-    </form>
+  </form>
 @endsection
 
 @section('dropzone-javascript')
   @include('partials.dropzone-js')
-@endsection
-
+@stop
 @section('dropzone-styles')
   @include('partials.dropzone-css')
-@endsection
-
+@stop

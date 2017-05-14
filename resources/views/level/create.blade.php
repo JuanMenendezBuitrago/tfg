@@ -1,7 +1,8 @@
 @extends ('layouts.dashboard')
 
 @section('content')
-  <form method="POST" action="">
+  <h1>Nou nivel</h1>
+  <form method="POST" action="/level">
     @include('level._form')
   </form>
 
