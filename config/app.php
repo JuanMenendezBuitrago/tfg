@@ -77,7 +77,8 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ca',
+    'fallback_locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------
@@ -179,6 +180,12 @@ return [
 
         // HTML hrlpers
         Collective\Html\HtmlServiceProvider::class,
+        // laracasts/flash
+        Laracasts\Flash\FlashServiceProvider::class,
+        // image processing
+        Intervention\Image\ImageServiceProvider::class,
+        //debugbar
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -228,6 +235,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'HTML' => Collective\Html\HtmlFacade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];
