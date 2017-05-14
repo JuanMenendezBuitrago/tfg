@@ -17,7 +17,7 @@ class CreateLevelsTable extends Migration
             $table->increments('id');
             $table->integer('course_id')->unsigned();
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->integer('min');
             $table->integer('max');
             $table->timestamps();

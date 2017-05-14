@@ -20,7 +20,7 @@ class CreatePointsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('course_id')->unsigned();
             $table->integer('activity_id')->unsigned();
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
 
             $table->foreign('category_id')
