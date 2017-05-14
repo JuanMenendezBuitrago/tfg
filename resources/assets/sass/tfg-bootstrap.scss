@@ -1,0 +1,35 @@
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@font-face {font-family: 'ProximaNovaSoft-Medium';src: url('../webfonts/2926A8_0_0.eot');src: url('../webfonts/2926A8_0_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/2926A8_0_0.woff') format('woff'),url('../webfonts/2926A8_0_0.ttf') format('truetype');}
+@font-face {font-family: 'ProximaNovaSoft-Semibold';src: url('../webfonts/2926A8_1_0.eot');src: url('../webfonts/2926A8_1_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/2926A8_1_0.woff') format('woff'),url('../webfonts/2926A8_1_0.ttf') format('truetype');}
+@font-face {font-family: 'ProximaNovaSoft-Bold';src: url('../webfonts/2926A8_2_0.eot');src: url('../webfonts/2926A8_2_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/2926A8_2_0.woff') format('woff'),url('../webfonts/2926A8_2_0.ttf') format('truetype');} 
+@font-face {font-family: 'ProximaNovaSoft-Regular';src: url('../webfonts/2926A8_3_0.eot');src: url('../webfonts/2926A8_3_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/2926A8_3_0.woff') format('woff'),url('../webfonts/2926A8_3_0.ttf') format('truetype');}
+ 
+// Variables
+@import "variables";
+$font-family-sans-serif: "ProximaNovaSoft-Regular", "Raleway", sans-serif;
+
+$pagination-color:                     #666;
+$pagination-border:                    #ddd;
+$pagination-hover-color:               orange;
+$pagination-hover-border:              #ddd;
+$pagination-active-color:              #fff;
+$pagination-active-bg:                 #666;
+$pagination-active-border:             #666;
+$pagination-disabled-color:            #ddd;
+$pagination-disabled-bg:               #fff;
+$pagination-disabled-border:           #ddd;
+
+
+//== Pager
+//
+//##
+
+$pager-border:                         $pagination-border;
+$pager-active-bg:                      $pagination-active-bg;
+$pager-active-color:                   $pagination-active-color;
+$pager-disabled-color:                 $pagination-disabled-color;
+
+
+// Bootstrap
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";

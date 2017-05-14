@@ -1,0 +1,106 @@
+label {
+  display: block;
+}
+
+.navbar {
+  margin-bottom: 0;
+}
+
+.row.flash .alert {
+  margin-top: 15px;
+}
+
+#menu-container menu {
+  margin-top: 30px;
+}
+
+#menu-container menu .panel-body {
+  padding: 0px;
+}
+
+#menu-container .panel-heading {
+  background: #ddd;
+}
+
+#menu-container menuitem {
+  display: block;
+  font-weight: normal;
+  padding: 5px 20px;
+  text-align: right;
+}
+
+#menu-container menuitem:hover {
+  color: orange;
+  background: #eee;
+}
+
+#menu-container .panel menuitem {
+  border-right: none;
+  border-left: none;
+}
+
+#menu-container .panel menuitem:first-child {
+  border-top: none;
+}
+
+#menu-container .panel menuitem:last-child {
+  border-bottom: none;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  color: orange;
+  text-decoration: none;
+}
+
+#main {
+  padding-top: 30px;
+}
+
+.form-group-lg .control-label {
+  font-size: larger;
+}
+
+.avatar {
+  width: 100%;
+  border-radius: 50%;
+  background: #eee;
+  padding: 50% 0;
+  background-size: cover;
+  background-position: center;
+}
+
+h1.user-data, h3.user-data {
+  text-align: center;
+}
+
+h3 {
+  margin-top: 0;
+}
+
+.section-heading {
+  font-weight: bold;
+}
+
+.section-item {
+  margin-left: 10px;
+}
+
+.badge-experiencia {
+  background-color: blue;
+}
+
+.badge-karma {
+  background-color: pink;
+}
+
+.badge-salut {
+  background-color: orange;
+}
+
+label {
+  text-transform: uppercase;
+}
